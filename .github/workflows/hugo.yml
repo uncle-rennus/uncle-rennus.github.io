@@ -24,6 +24,11 @@ jobs:
       - name: Build site
         run: hugo --minify
 
+      - name: Setup Git identity
+        run: |
+          git config --global user.name "uncle-rennus"
+          git config --global user.email "rennanslt@gmail.com"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -31,5 +36,3 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           cname: rennus.me
-          user_name: github-actions
-          user_email: github-actions@github.com
