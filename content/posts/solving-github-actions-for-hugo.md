@@ -6,31 +6,35 @@ tags: ["github-actions", "hugo", "devops", "tutorial"]
 categories: ["Technical"]
 ---
 
-After a bit of a journey, we've landed on a stable GitHub Actions workflow to automatically build and deploy our Hugo blog with the PaperMod theme to GitHub Pages. This post breaks down the key components and versions used, so you can replicate this success or understand what makes it tick!
+This isn't the first atempt to create a place to publicly store my ideas. Probably not the last as well. All I wanted was to use a domain of mine, and avoid paying recurrently for storage and processing for something that's not going to be seen except for less than a dozen of people.
+
+I tried a lot of solutions in the past for static websites within github pages, such as Jekyll and Django. I also tried free solutions that after a while became pretty popular, but the main issue was to keep on publishing stuff. I guess that after around 10 years of regret of not keeping it up, here we are in a (hopefully) successful atempt. 
+
+It seems that Hugo is what the kid's are enjoying lately. After a bit of a journey, I've landed on a stable GitHub Actions workflow to automatically build and deploy this static blog with the PaperMod theme. This post breaks down the key components and versions used, so you can replicate this experiment or understand what makes it tick.
 
 ## Workflow Structure Overview
 
-Our workflow, defined in `.github/workflows/hugo.yml`, uses a single job named `deploy`. This job handles everything from checking out the code to deploying the final built site.
+This workflow, defined in `.github/workflows/hugo.yml`, uses a single job named `deploy`. This job handles everything, from checking out the code to deploying the final built site.
 
 Here's a high-level view of the steps involved in the `deploy` job:
 
-1.  **Checkout Code:** Fetches the latest version of your repository, including submodules (for the theme).
-2.  **Setup Hugo:** Downloads and installs the specific version of Hugo required by the PaperMod theme.
-3.  **Build Site:** Runs the `hugo` command to generate the static site files. It also copies the `CNAME` file for our custom domain into the output directory.
+1.  **Checkout Code:** Fetches the latest version of your repository, including submodules (for the theme, PaperMod in this case).
+2.  **Setup Hugo:** Downloads and installs the `specific` version of Hugo required by the PaperMod theme.
+3.  **Build Site:** Runs the `hugo` command to generate the static site files. It also copies the `CNAME` file for a custom domain into the output directory.
 4.  **Setup Pages:** Configures the environment for GitHub Pages deployment.
-5.  **Upload Artifact:** Bundles the built site (from the `public` directory) into an artifact that GitHub Pages can use.
+5.  **Upload Artifact:** Bundles the built site (resultant in the `public` directory) into an artifact that GitHub Pages can use.
 6.  **Deploy to GitHub Pages:** Takes the uploaded artifact and deploys it.
 
 ## Key GitHub Actions and Versions
 
-Getting the versions of the GitHub Actions right was crucial. Here's what we're using:
+Getting the versions of the GitHub Actions right was crucial. Here's what worked:
 
 *   **`actions/checkout@v4`**:
-    *   **Purpose:** Checks out your repository under `$GITHUB_WORKSPACE`, so your workflow can access it.
-    *   **Configuration:** Used with `submodules: true` to ensure the PaperMod theme (which is a submodule) is also fetched, and `fetch-depth: 0` to get the full git history (useful for some Hugo features).
+    *   **Purpose:** Checks out your repository under `$GITHUB_WORKSPACE`, so the workflow can access it.
+    *   **Configuration:** Used with `submodules: true` to ensure the PaperMod theme (which is a submodule) is also fetched, and `fetch-depth: 0` to get the full git history (useful for some Hugo features I'm probably going to study later).
 
 *   **Manual Hugo Installation (v0.146.0)**:
-    *   **Purpose:** Instead of a dedicated "setup Hugo" action, we directly download and install a specific Hugo version. This was done because the PaperMod theme requires Hugo `v0.146.0` or newer.
+    *   **Purpose:** Instead of a dedicated "setup Hugo" action, we directly download and install a specific Hugo version. This was done because the PaperMod theme requires Hugo `v0.146.0` or newer. This was a key aspect that I ignored in the beggining, 
     *   **Method:**
         ```bash
         HUGO_VERSION=0.146.0
