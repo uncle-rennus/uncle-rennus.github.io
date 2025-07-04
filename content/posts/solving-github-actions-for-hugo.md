@@ -1,5 +1,5 @@
 ---
-title: "Demystifying the GitHub Actions Workflow for Our Hugo Blog"
+title: "Demystifying the GitHub Actions Workflow for this Hugo Blog"
 date: 2025-06-02
 draft: false
 tags: ["github-actions", "hugo", "devops", "tutorial"]

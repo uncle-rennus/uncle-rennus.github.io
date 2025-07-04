@@ -51,17 +51,18 @@ After adding debug `echo "Starting bash with PWD=$PWD"` lines to my `.bashrc`, I
 
 ```bash
 cd $HOME
+```
+
 This single line forced every new interactive shell to start in the home directory, overriding any inherited directory from the parent shell.
 
-By removing/commenting out that line, I finally had a working PowerShell function that:
+By commenting out that line, I finally had a working PowerShell function that:
 
-Starts MINGW64 bash as a login interactive shell
+- Starts MINGW64 bash as a login interactive shell
+- Starts in the current PowerShell directory when requested
+- Keeps my prompt, git branch info, and custom functions working
 
-Starts in the current PowerShell directory when requested
+**The Takeaway:** *Always Look at the Big Picture*
 
-Keeps my prompt, git branch info, and custom functions working
-
-The Takeaway: Always Look at the Big Picture
 It’s easy to chase fancy hacks and workarounds when something behaves unexpectedly. But sometimes, the root cause is a simple line hiding in a config file.
 
 Before reinventing the wheel:
@@ -74,4 +75,4 @@ Test with debug outputs to see what your shell actually does on startup
 
 This journey reminded me to zoom out and look at the entire environment instead of just the symptoms. And now, with MINGW64 and PowerShell working smoothly together, I’m back in control of my shell experience on Windows.
 
-Happy hacking!
+Happy exploring!
