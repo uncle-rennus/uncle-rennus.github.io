@@ -1,9 +1,12 @@
-+++
-date = '2025-05-13T14:07:44-03:00'
-draft = false
-title = 'Setup'
-+++
+---
+title: "Setup"
+date: 2025-05-20
+draft: false
+tags: ["first", "test"]
+categories: ["general"]
+---
 
-Well, you must be a new arrival. I'm Rennan of Rennus. If you require Insighting, speak to me.
+
+Well, you must be a new arrival. I'm Rennan of Astora. If you require crepidarian insights, speak to me.
 
 I'll be seeing you then. Be careful out there.

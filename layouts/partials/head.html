@@ -1,0 +1,259 @@
+{{- /* Custom head partial with accessibility improvements */ -}}
+{{- /* Original head content first */ -}}
+{{- partial "head_original.html" . }}
+
+{{- /* Accessibility improvements */ -}}
+<style>
+/* Accessibility improvements for better contrast and focus visibility */
+:root {
+    --focus-outline: 2px solid #0066cc;
+    --focus-outline-offset: 2px;
+}
+
+/* Improve focus visibility for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #000000;
+        --secondary: #333333;
+        --tertiary: #666666;
+        --content: #000000;
+        --theme: #ffffff;
+        --entry: #f5f5f5;
+        --border: #000000;
+    }
+}
+
+/* Ensure proper color contrast for dark mode */
+.dark {
+    --primary: #ffffff;
+    --secondary: #cccccc;
+    --content: #ffffff;
+}
+
+/* Skip to main content link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Improved menu accessibility */
+.menu {
+    role: navigation;
+}
+
+.menu-toggle {
+    position: relative;
+}
+
+.menu-toggle:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+/* Mobile menu improvements */
+@media (max-width: 768px) {
+    .menu--open {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--theme);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .menu-overlay--visible {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+
+<!-- Accessibility JavaScript improvements -->
+<script>
+(function() {
+    'use strict';
+    
+    // Improve keyboard navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add aria-label to logo images without alt text
+        const logoImages = document.querySelectorAll('.logo img[alt=""]');
+        logoImages.forEach(function(img) {
+            img.setAttribute('aria-label', 'Site logo');
+        });
+        
+        // Add aria-label to SVG icons without proper labels
+        const svgIcons = document.querySelectorAll('svg:not([aria-label]):not([aria-labelledby]):not([role="img"])');
+        svgIcons.forEach(function(svg) {
+            // Check if it's in a button or link that has proper labeling
+            const parent = svg.closest('button, a');
+            if (parent && (parent.getAttribute('aria-label') || parent.textContent.trim())) {
+                svg.setAttribute('aria-hidden', 'true');
+            } else {
+                // Try to determine icon purpose from context
+                const context = svg.closest('.theme-toggle, .top-link, .share-buttons');
+                if (context) {
+                    if (context.classList.contains('theme-toggle')) {
+                        svg.setAttribute('aria-label', 'Theme toggle icon');
+                    } else if (context.classList.contains('top-link')) {
+                        svg.setAttribute('aria-label', 'Go to top icon');
+                    } else if (context.classList.contains('share-buttons')) {
+                        svg.setAttribute('aria-label', 'Share icon');
+                    }
+                } else {
+                    svg.setAttribute('aria-label', 'Icon');
+                }
+            }
+        });
+        
+        // Improve mobile menu focus management
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('menu');
+        const overlay = document.querySelector('.menu-overlay');
+        
+        if (menuToggle && menu && overlay) {
+            // Trap focus when menu is open
+            let focusableElements = [];
+            let firstFocusableElement;
+            let lastFocusableElement;
+            
+            function updateFocusableElements() {
+                focusableElements = menu.querySelectorAll(
+                    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                );
+                firstFocusableElement = focusableElements[0];
+                lastFocusableElement = focusableElements[focusableElements.length - 1];
+            }
+            
+            function trapFocus(e) {
+                if (!menu.classList.contains('menu--open')) return;
+                
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusableElement) {
+                            lastFocusableElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusableElement) {
+                            firstFocusableElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+                
+                // Close menu on Escape
+                if (e.key === 'Escape') {
+                    closeMenu();
+                }
+            }
+            
+            function closeMenu() {
+                if (menu.classList.contains('menu--open')) {
+                    menuToggle.click(); // Trigger existing close functionality
+                }
+            }
+            
+            // Listen for menu open/close
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        if (menu.classList.contains('menu--open')) {
+                            updateFocusableElements();
+                            document.addEventListener('keydown', trapFocus);
+                        } else {
+                            document.removeEventListener('keydown', trapFocus);
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(menu, { attributes: true });
+            
+            // Close menu when clicking overlay
+            overlay.addEventListener('click', closeMenu);
+        }
+        
+        // Add semantic headings check
+        function checkHeadingOrder() {
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            let lastLevel = 0;
+            let issues = [];
+            
+            headings.forEach(function(heading, index) {
+                const level = parseInt(heading.tagName.charAt(1));
+                if (index === 0 && level !== 1) {
+                    issues.push('Page should start with h1');
+                } else if (level > lastLevel + 1) {
+                    issues.push(`Heading level skipped: ${heading.tagName} after h${lastLevel}`);
+                }
+                lastLevel = level;
+            });
+            
+            if (issues.length > 0 && console.warn) {
+                console.warn('Heading structure issues:', issues);
+            }
+        }
+        
+        checkHeadingOrder();
+    });
+})();
+</script>
