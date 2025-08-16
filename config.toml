@@ -15,12 +15,12 @@ theme = 'PaperMod'
   [params.homeInfoParams]
     Title = "Hi, I'm Rennan! 👋"
     Content = """
-    Welcome to my blog! I'm a passionate developer who loves sharing insights about technology, programming, and digital experiences. 
-    
-    Here you'll find my thoughts on software development, tutorials, and explorations into the latest tech trends. Whether you're a fellow developer or just curious about the digital world, I hope you'll find something valuable here.
-    
-    Feel free to explore my posts and connect with me!
-    """
+Welcome to my blog! I'm a passionate developer who loves sharing insights about technology, programming, and digital experiences.
+
+Here you'll find my thoughts on software development, tutorials, and explorations into the latest tech trends. Whether you're a fellow developer or just curious about the digital world, I hope you'll find something valuable here.
+
+Feel free to explore my posts and connect with me!
+"""
 
 [menu]
   [[menu.main]]

@@ -72,3 +72,14 @@ Change detected, rebuilding site (#9).
 Template changed /partials/head.html
 Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
 Total in 902 ms
+
+Change detected, rebuilding site (#10).
+2025-08-16 09:17:40.619 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 1115 ms
+
+Change of config file detected, rebuilding site (#11).
+2025-08-16 09:17:50.616 -0300
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Rebuilt in 918 ms
