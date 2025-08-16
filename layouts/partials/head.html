@@ -73,37 +73,178 @@ textarea:focus-visible,
     border: 0;
 }
 
-/* Improved menu accessibility */
-.menu {
-    role: navigation;
+/* Theme toggle button fixes */
+#theme-toggle {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.menu-toggle {
-    position: relative;
+#theme-toggle:hover {
+    background: var(--entry);
 }
 
-.menu-toggle:focus-visible {
+#theme-toggle:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
 }
 
-/* Mobile menu improvements */
+/* Header and navigation improvements */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--theme);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    min-height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-switches {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Menu toggle button - hidden on desktop */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--primary);
+}
+
+.menu-toggle:hover {
+    background: var(--entry);
+}
+
+/* Default menu styles for desktop */
+.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.menu li {
+    margin: 0;
+}
+
+.menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--primary);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.menu a:hover {
+    background: var(--entry);
+}
+
+.menu .active {
+    font-weight: bold;
+    background: var(--entry);
+}
+
+/* Hide mobile menu close button on desktop */
+.menu-close {
+    display: none;
+}
+
+/* Mobile menu overlay - hidden by default */
+.menu-overlay {
+    display: none;
+}
+
+/* Mobile responsive styles */
 @media (max-width: 768px) {
-    .menu--open {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .menu {
         position: fixed;
         top: 0;
-        left: 0;
+        left: -100%;
         width: 100%;
         height: 100vh;
         background: var(--theme);
-        z-index: 9999;
-        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 9999;
+        transition: left 0.3s ease;
+        padding: 20px;
+        box-sizing: border-box;
     }
     
-    .menu-overlay--visible {
+    .menu--open {
+        left: 0;
+    }
+    
+    /* Mobile menu close button */
+    .menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: block !important;
+    }
+    
+    .menu-close-btn {
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 4px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .menu-close-btn:hover {
+        background: var(--entry);
+    }
+    
+    .menu li {
+        margin: 10px 0;
+    }
+    
+    .menu a {
+        font-size: 1.2em;
+        padding: 15px 30px;
+        min-width: 200px;
+        text-align: center;
+    }
+    
+    .menu-overlay {
+        display: block;
         position: fixed;
         top: 0;
         left: 0;
@@ -111,6 +252,24 @@ textarea:focus-visible,
         height: 100vh;
         background: rgba(0, 0, 0, 0.5);
         z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .menu-overlay--visible {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Adjust header for mobile */
+    .nav {
+        padding: 0 15px;
+        min-height: 50px;
+    }
+    
+    .logo-switches {
+        gap: 5px;
     }
 }
 

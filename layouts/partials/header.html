@@ -132,6 +132,14 @@
         
         {{- $currentPage := . }}
         <ul id="menu" class="menu" role="menubar" aria-label="Site navigation">
+            {{- /* Mobile menu close button */ -}}
+            <li class="menu-close" role="none">
+                <button class="menu-close-btn" aria-label="Close navigation menu">
+                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+            </li>
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
@@ -213,6 +221,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close menu when clicking overlay
     overlay.addEventListener('click', closeMenu);
+    
+    // Close menu when clicking close button
+    const menuCloseBtn = document.querySelector('.menu-close-btn');
+    if (menuCloseBtn) {
+        menuCloseBtn.addEventListener('click', closeMenu);
+    }
     
     // Close menu on Escape key
     document.addEventListener('keydown', function(e) {

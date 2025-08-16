@@ -1,0 +1,21 @@
+Watching for changes in C:\Users\renna\blog\{archetypes,content,layouts,static,themes}
+Watching for config changes in C:\Users\renna\blog\config.toml
+Start building sites ÔÇª 
+hugo v0.147.9-29bdbde19c288d190e889294a862103c6efb70bf+extended windows/amd64 BuildDate=2025-06-23T08:22:20Z VendorInfo=gohugoio
+
+
+                  Ôöé EN 
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇ
+ Pages            Ôöé 39 
+ Paginator pages  Ôöé  0 
+ Non-page files   Ôöé  0 
+ Static files     Ôöé  1 
+ Processed images Ôöé  0 
+ Aliases          Ôöé 15 
+ Cleaned          Ôöé  0 
+
+Built in 2454 ms
+Environment: "development"
+Serving pages from disk
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0) 
+Press Ctrl+C to stop
