@@ -19,3 +19,56 @@ Environment: "development"
 Serving pages from disk
 Web Server is available at http://localhost:1313/ (bind address 0.0.0.0) 
 Press Ctrl+C to stop
+
+Change detected, rebuilding site (#1).
+2025-08-16 09:00:06.668 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 1172 ms
+
+Change detected, rebuilding site (#2).
+2025-08-16 09:00:13.618 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 290 ms
+
+Change detected, rebuilding site (#3).
+2025-08-16 09:00:24.117 -0300
+Template changed /partials/header.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 1082 ms
+
+Change detected, rebuilding site (#4).
+2025-08-16 09:00:34.670 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 1026 ms
+
+Change detected, rebuilding site (#5).
+2025-08-16 09:00:42.621 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 537 ms
+
+Change detected, rebuilding site (#6).
+2025-08-16 09:00:58.625 -0300
+Template changed /partials/header.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 738 ms
+
+Change of config file detected, rebuilding site (#7).
+2025-08-16 09:14:47.117 -0300
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Rebuilt in 6108 ms
+
+Change detected, rebuilding site (#8).
+2025-08-16 09:15:10.120 -0300
+Template changed /_default/list.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 2924 ms
+
+Change detected, rebuilding site (#9).
+2025-08-16 09:15:29.174 -0300
+Template changed /partials/head.html
+Web Server is available at http://localhost:1313/ (bind address 0.0.0.0)
+Total in 902 ms
